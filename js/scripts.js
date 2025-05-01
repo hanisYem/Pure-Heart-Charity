@@ -1,9 +1,9 @@
-// Full Name Validation (reusable function)
+/* Full Name Validation (Reusable function) */
 function isValidFullName(name) {
     return /^[A-Za-z\s]+$/.test(name.trim());
 }
 
-// Contact Form Submission
+/* Contact Form Validation & Submission */
 const contactForm = document.getElementById('contactForm');
 if (contactForm) {
     contactForm.addEventListener('submit', function (event) {
@@ -13,22 +13,25 @@ if (contactForm) {
         const message = document.getElementById('message').value.trim();
         const wordCount = message.split(/\s+/).filter(Boolean).length;
 
+        // Validate Full Name
         if (!isValidFullName(name)) {
             alert("Full Name must contain only letters and spaces. No numbers or symbols allowed.");
             return;
         }
 
+        // Validate Message Length
         if (wordCount < 10) {
             alert("Message must be at least 10 words.");
             return;
         }
 
+        // Success Message
         alert("Thank you for reaching out. Your message has been sent successfully.");
         contactForm.reset();
     });
 }
 
-// Donation Form Submission
+/* Donation Form Validation & Submission */
 const donationForm = document.getElementById('donationForm');
 if (donationForm) {
     donationForm.addEventListener('submit', function (event) {
@@ -38,53 +41,64 @@ if (donationForm) {
         const amount = parseFloat(document.getElementById('amount').value.trim());
         const paymentMethod = document.getElementById('paymentMethod').value;
 
+        // Validate Full Name
         if (!isValidFullName(name)) {
             alert("Full Name must contain only letters and spaces. No numbers or symbols allowed.");
             return;
         }
 
+        // Validate Donation Amount
         if (isNaN(amount) || amount < 10) {
             alert("Donation amount must be at least RM10.");
             return;
         }
 
+        // Validate Payment Method
         if (!paymentMethod) {
             alert("Please select a payment method.");
             return;
         }
 
+        // Success Message
         alert("Thank you for your generous donation!");
         donationForm.reset();
     });
 }
 
+/* Check Donation Eligibility */
 function checkDonationEligibility() {
-    var donationAmount = document.getElementById('donationAmount').value;
-    var minDonation = 10;
+    const donationAmount = document.getElementById('donationAmount').value;
+    const minDonation = 10;
 
     if (donationAmount < minDonation) {
-        alert("The donation amount must be at least $" + minDonation);
+        alert("The donation amount must be at least RM" + minDonation);
     } else {
-        alert("Thank you for your donation of $" + donationAmount);
+        alert("Thank you for your donation of RM" + donationAmount);
     }
 }
 
+/* Slideshow Functionality */
 let slideIndex = 0;
 
 function showSlides() {
-    let slides = document.getElementsByClassName("mySlides");
+    const slides = document.getElementsByClassName("mySlides");
 
+    // Hide all slides
     for (let i = 0; i < slides.length; i++) {
         slides[i].style.display = "none";
     }
 
+    // Move to the next slide
     slideIndex++;
 
     if (slideIndex > slides.length) {
         slideIndex = 1;
     }
 
+    // Show the current slide
     slides[slideIndex - 1].style.display = "block";
+    
+    // Repeat every 3 seconds
     setTimeout(showSlides, 3000);
 }
 
@@ -136,3 +150,7 @@ showSlides();
             });
         });
 
+// Toggle Navigation Menu (Responsive)
+function toggleMenu() {
+    document.querySelector('nav ul').classList.toggle('active');
+}
